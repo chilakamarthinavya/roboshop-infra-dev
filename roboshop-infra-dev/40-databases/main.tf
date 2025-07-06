@@ -18,8 +18,8 @@ resource "terraform_data" "mongodb" {
   ]
 
    provisioner "file" {
-    source      = "bootstrap"
-     destination = "/tmp/bootstrap"
+    source      = "db.sh"
+     destination = "/tmp/db.sh"
   }
 
  connection {
@@ -31,8 +31,8 @@ resource "terraform_data" "mongodb" {
 
   provisioner "remote-exec" {
     inline = [
-        "chmod +x /tmp/bootstrap",
-        "sudo sh /tmp/bootstrap mongodb"
+        "chmod +x /tmp/db.sh",
+        "sudo sh /tmp/db.sh mongodb"
     ]
   }
 }
@@ -57,8 +57,8 @@ resource "terraform_data" "redis" {
   ]
 
    provisioner "file" {
-    source      = "bootstrap"
-     destination = "/tmp/bootstrap"
+    source      = "db.sh"
+     destination = "/tmp/db.sh"
   }
 
  connection {
@@ -70,8 +70,8 @@ resource "terraform_data" "redis" {
 
   provisioner "remote-exec" {
     inline = [
-        "chmod +x /tmp/bootstrap",
-        "sudo sh /tmp/bootstrap redis"
+        "chmod +x /tmp/db.sh",
+        "sudo sh /tmp/db.sh redis"
     ]
   
   }
@@ -98,8 +98,8 @@ resource "terraform_data" "mysql" {
   ]
 
    provisioner "file" {
-    source      = "bootstrap"
-     destination = "/tmp/bootstrap"
+    source      = "db.sh"
+     destination = "/tmp/db.sh"
   }
 
  connection {
@@ -111,8 +111,8 @@ resource "terraform_data" "mysql" {
 
   provisioner "remote-exec" {
     inline = [
-        "chmod +x /tmp/bootstrap",
-        "sudo sh /tmp/bootstrap mysql"
+        "chmod +x /tmp/db.sh",
+        "sudo sh /tmp/db.sh mysql"
     ]
   
   }
@@ -139,8 +139,8 @@ resource "terraform_data" "rabbitmq" {
   ]
 
    provisioner "file" {
-    source      = "bootstrap"
-     destination = "/tmp/bootstrap"
+    source      = "db.sh"
+     destination = "/tmp/db.sh"
   }
 
  connection {
@@ -152,8 +152,8 @@ resource "terraform_data" "rabbitmq" {
 
   provisioner "remote-exec" {
     inline = [
-        "chmod +x /tmp/bootstrap",
-        "sudo sh /tmp/bootstrap rabbitmq"
+        "chmod +x /tmp/db.sh",
+        "sudo sh /tmp/db.sh rabbitmq"
     ]
   
   }
