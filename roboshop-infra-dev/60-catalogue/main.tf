@@ -136,7 +136,7 @@ resource "aws_autoscaling_group" "catalogue" {
   desired_capacity   = 1
   max_size           = 10
   min_size           = 1
-  target_group_arns = [aws_lb_target_group.catalogue]
+  target_group_arns = [aws_lb_target_group.catalogue.arn]
   vpc_zone_identifier = local.private_subnet_ids
   health_check_grace_period =  90
   health_check_type = "ELB"
