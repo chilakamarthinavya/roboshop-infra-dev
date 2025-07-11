@@ -91,49 +91,44 @@ resource "terraform_data" "catalogue_delete" {
 
 #Launch template
 resource "aws_launch_template" "catalogue" {
-  name = "${var.project}-${var.environment}-catalogue"
-  image_id = aws_ami_from_instance.catalogue.id
+  name                             = "${var.project}-${var.environment}-catalogue"
+  image_id                         = aws_ami_from_instance.catalogue.id
   instance_initiated_shutdown_behavior = "terminate"
-  instance_type = "t3.micro"
-  vpc_security_group_ids = [local.catalogue_sg_id]
-  update_default_version = true # each time you update new version will become default
-#EC2 tags
+  instance_type                    = "t3.micro"
+  vpc_security_group_ids           = [local.catalogue_sg_id]
+  update_default_version           = true
+
+  # EC2 instance tags
   tag_specifications {
     resource_type = "instance"
 
-    tags = {
-      Name = merge(
-        local.common_tags,
-        {
-          Name= "${var.project}-${var.environment}-catalogue"
-        }
-      )
-    }
+    tags = merge(
+      local.common_tags,
+      {
+        Name = "${var.project}-${var.environment}-catalogue"
+      }
+    )
   }
 
-# volume tags created by ASG
-   tag_specifications {
+  # EBS volume tags
+  tag_specifications {
     resource_type = "volume"
 
-    tags = {
-      Name = merge(
-        local.common_tags,
-        {
-          Name= "${var.project}-${var.environment}-catalogue"
-        }
-      )
-    }
+    tags = merge(
+      local.common_tags,
+      {
+        Name = "${var.project}-${var.environment}-catalogue"
+      }
+    )
   }
 
-  # launch template tags
-tags = {
-      Name = merge(
-        local.common_tags,
-        {
-          Name= "${var.project}-${var.environment}-catalogue"
-        }
-      )
+  # Launch template tags
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "${var.project}-${var.environment}-catalogue"
     }
+  )
 }
 
 resource "aws_autoscaling_group" "catalogue" {
