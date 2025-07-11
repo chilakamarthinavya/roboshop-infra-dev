@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 component=$1
 dnf install ansible -y
