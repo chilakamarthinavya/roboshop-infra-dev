@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  namespace: roboshop
+  labels:
+    component: mysql
+    project: roboshop
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      component: mysql
+      project: roboshop
+      tier: database # has to match .spec.template.metadata.labels
+  serviceName: "mysql-headless" # this should be headless service
+  replicas: 2 # by default is 1
+  template:
+    metadata:
+      labels:
+        component: mysql
+        project: roboshop
+        tier: database
+    spec:
+      containers:
+      - name: mysql
+        image: "{{ .Values.statefulset.imageURL}}:{{ .Values.statefulset.imageVersion }}"
+        envFrom:
+        - secretRef:
+            name: mysql
+        volumeMounts:
+        - name: mysql-data
+          mountPath: /var/lib/mysql
+  # This is nothing but PVC, you can directly create here
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "roboshop-ebs"
+      resources:
+        requests:
+          storage: 2Gi
