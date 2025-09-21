@@ -1,4 +1,0 @@
-
-statefulset:
-  imageURL: chilakamarthinavya/mongodb
-  imageVersion: v1

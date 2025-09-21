@@ -1,3 +1,0 @@
-statefulset:
-  imageURL: chilakamarthinavya/mysql
-  imageVersion: v1
